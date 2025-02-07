@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Girlfriend?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Increase the size of the popup frame *//* Popup container styling */
+.popup {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    width: 350px; /* Increase width */
+    height: 200px; /* Increase height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Style for the call button */
+.call {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto; /* This will center the button horizontally */
+}
+
+/* Style for the phone icon */
+.call i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 20px; /* Icon size */
+}
+
+/* Button hover effect */
+.yes:hover {
+    background-color: #45a049;
+}
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            background-color: #ffebee;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .letter-image {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .animated-mail {
+            position: absolute;
+            height: 150px;
+            width: 200px;
+            transition: 0.4s;
+        }
+
+        .body {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 100px 200px;
+            border-color: transparent transparent #e95f55 transparent;
+            z-index: 2;
+        }
+
+        .top-fold {
+            position: absolute;
+            top: 50px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 50px 100px 0 100px;
+            transform-origin: 50% 0%;
+            transition: transform 0.4s 0.4s, z-index 0.2s 0.4s;
+            border-color: #cf4a43 transparent transparent transparent;
+            z-index: 2;
+        }
+
+        .back-fold {
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            height: 100px;
+            background: #cf4a43;
+            z-index: 0;
+        }
+
+        .letter {
+            left: 20px;
+            bottom: 0px;
+            position: absolute;
+            width: 160px;
+            height: 60px;
+            background: white;
+            z-index: 1;
+            overflow: hidden;
+            transition: 0.4s 0.2s;
+        }
+
+        .letter-border {
+            height: 10px;
+            width: 100%;
+            background: repeating-linear-gradient(-45deg, #cb5a5e, #cb5a5e 8px, transparent 8px, transparent 18px);
+        }
+
+        .letter-title, .letter-context, .letter-stamp {
+            background: #cb5a5e;
+        }
+
+        .letter-title {
+            margin: 10px 5px 0;
+            height: 10px;
+            width: 40%;
+        }
+
+        .letter-context {
+            margin: 10px 5px;
+            height: 10px;
+            width: 20%;
+        }
+
+        .letter-stamp {
+            margin: 30px 0 0 120px;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            opacity: 0.3;
+        }
+
+        .shadow {
+            position: absolute;
+            top: 200px;
+            left: 50%;
+            width: 400px;
+            height: 30px;
+            transform: translateX(-50%);
+            border-radius: 100%;
+            background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0));
+            transition: 0.4s;
+        }
+
+        .letter-image.open .animated-mail,
+        .letter-image:hover .animated-mail {
+            transform: translateY(50px);
+        }
+
+        .letter-image.open .top-fold,
+        .letter-image:hover .top-fold {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .letter-image.open .letter,
+        .letter-image:hover .letter {
+            height: 180px;
+        }
+
+        .letter-image.open .shadow,
+        .letter-image:hover .shadow {
+            width: 250px;
+        }
+
+        .container {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .container.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Pacifico', cursive;
+        }
+
+        .buttons .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .buttons .yes:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        .buttons .maybe {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+        @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.buttons .maybe:hover {
+    background-color: #e53935;
+    animation: shake 0.5s ease-in-out infinite; /* Infinite shaking on hover */
+}
+
+        h1 {
+            font-size: 3rem;
+            color: #e95f55;
+            margin-bottom: 20px;
+        }
+
+        /* Flower Rain Animation */
+        .flower {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Hide flowers initially */
+        .flower {
+            display: none;
+        }
+
+        /* Warning box styling */
+.warning-box {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    z-index: 1000;
+    animation: shake 1s ease-in-out infinite;}
+
+/* Keyframes for shaking effect */
+@keyframes shake {
+    0% { transform: translateX(); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+   
+}
+
+.warning-box button {
+    background-color: white;
+    color: #f44336;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.warning-box button:hover {
+    background-color: #ddd;
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="warning-box" id="warningBox">
+        <p>Please turn on the sound!</p>
+        <button onclick="dismissWarning()">Got it</button>
+    </div>
+    <div class="letter-image" onclick="openEnvelope()">
+        <div class="animated-mail">
+            <div class="back-fold"></div>
+            <div class="letter">
+                <div class="letter-border"></div>
+                <div class="letter-title"></div>
+                <div class="letter-context"></div>
+                <div class="letter-stamp"></div>
+            </div>
+            <div class="top-fold"></div>
+            <div class="body"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <div class="container">
+        <h1 id="question">Will you be my girlfriend?</h1>
+        <div class="buttons">
+            <button class="yes" onmouseover="playHappySound()" onmouseout="stopHappySound()" onclick="startFlowerRain(),hideButtons()" >Yes</button>
+            <button class="maybe" onmouseover="playBeatSound()" onmouseout="stopBeatSound()" onclick="playBrokenSound(); moveMaybe()">Maybe</button>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <p>Say yes on call!</p>
+        <a href="tel:9829027413">
+            <button class="call" onclick="stopshadiSound()">
+                <i class="fa fa-phone"></i> Call Me
+            </button>
+        </a>
+    </div>
+    
+
+    <!-- Flower Rain Container -->
+    <div id="flower-container"></div>
+
+    <script>
+        function hideButtons() {
+    document.querySelector('.yes').style.display = 'none';
+    document.querySelector('.maybe').style.display = 'none';
+    document.querySelector('.container').style.display = 'none';
+}
+function dismissWarning() {
+    document.getElementById('warningBox').style.display = 'none';
+}
+
+        let happyAudio = new Audio('happy.mp3');
+        let beatAudio = new Audio('beat.mp3');
+        let brokenAudio = new Audio('broken.mp3');
+        let shaadiAudio = new Audio('shaadi.m4a'); // Add your Shaadi music file
+
+        function openEnvelope() {
+            document.querySelector('.letter-image').classList.add('open');
+            setTimeout(() => {
+                document.querySelector('.letter-image').style.display = 'none';
+                const container = document.querySelector('.container');
+                container.classList.add('show');
+            }, 1000);
+        }
+
+        let questions = [
+    "Are you sure?", "Think again!", "Come on, say yes!", "You won't regret it!", 
+    "Last chance!", "I'll be the best!", "Don't make me wait!", "You're the one!",
+    "Trust me!", "You are special!", "Don't break my heart!", "You're my happiness!",
+    "Say yes and let's be happy!", "I'm waiting for you!", "You are amazing!", 
+    "What are you waiting for?", "This could be the start of something beautiful!",
+    "You're my dream come true!", "I promise I'll make you smile every day!",
+    "Say yes and I'll make it worth it!", "Together, we can make magic!",
+    "I'm better with you!", "You complete me!", "I’ll always be here for you!",
+    "You’re all I need!", "Let’s make this moment unforgettable!",
+    "I’ll be your best friend forever!", "This is our time!", "Don’t leave me hanging!",
+    "Your yes will make my day!", "Let’s start a new chapter!", "I believe in us!",
+    "Our future looks bright, don’t you think?", "You deserve the world, and I’m ready to give it to you!",
+    "I’ll cherish you forever!", "You’re the one I've been waiting for!",
+    "A lifetime of happiness awaits us!", "I’ll make you feel like the luckiest person alive!",
+    "Let’s create our own fairytale!", "You’re the missing piece of my puzzle!",
+    "Take a chance on me, you won’t regret it!", "I can’t wait for our adventure together!"
+];
+
+
+        let questionIndex = 0;
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function moveMaybe() {
+            if (questionIndex < questions.length) {
+                document.getElementById("question").innerText = questions[questionIndex++];
+                let btn = document.querySelector(".maybe");
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 200) + 100;
+                btn.style.left = `${x}px`;
+                btn.style.top = `${y}px`;
+            }
+        }
+
+        function playBeatSound() {
+            beatAudio.play();
+        }
+
+        function stopBeatSound() {
+            beatAudio.pause();
+            beatAudio.currentTime = 0;
+        }
+
+        function playBrokenSound() {
+            brokenAudio.play();
+        }
+
+        function playHappySound() {
+            happyAudio.play();
+        }
+
+        function stopHappySound() {
+            happyAudio.pause();
+            happyAudio.currentTime = 0;
+        }
+        function stopshadiSound() {
+            shaadiAudio.pause();
+            shaadiAudio.currentTime = 0;
+        }
+        function startFlowerRain() {
+            // Play Shaadi music
+            stopHappySound()
+            shaadiAudio.play();
+
+            // Start flower rain
+            const flowerContainer = document.getElementById('flower-container');
+            flowerContainer.innerHTML = ''; // Clear previous flowers
+
+            for (let i = 0; i < 50; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.innerHTML = '🌸'; // Flower emoji
+                flower.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+                flower.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random fall speed
+                flower.style.display = 'block'; // Show the flower
+                flowerContainer.appendChild(flower);
+            }
+
+            // Show the popup after flower rain starts
+            showPopup();
+        }
+    </script>
+</body>
+</html>
