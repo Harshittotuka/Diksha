@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sorry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #ffe7f1;
+      --bg-2: #dff7ff;
+      --bg-3: #fff1db;
+      --ink: #3b2e2a;
+      --yes: #ff7fb0;
+      --yes-2: #ffb1d4;
+      --no: #b5b5c9;
+      --no-2: #d7d7ea;
+      --card: rgba(255, 255, 255, 0.88);
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 18% 18%, #dff7ff, transparent 40%),
+                  radial-gradient(circle at 85% 12%, #fff1db, transparent 45%),
+                  radial-gradient(circle at 70% 80%, #ffe7f1, transparent 50%),
+                  linear-gradient(160deg, var(--bg-1), #ffffff);
+      font-family: "Fredoka", system-ui, sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+    }
+
+    .blobs {
+      position: absolute;
+      inset: -10vh;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(0.5px);
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 999px;
+      opacity: 0.45;
+      mix-blend-mode: multiply;
+      animation: blobFloat 12s ease-in-out infinite;
+    }
+
+    .blob.one {
+      width: 240px;
+      height: 240px;
+      background: #ffd4e6;
+      top: 8%;
+      left: 6%;
+      animation-delay: 0s;
+    }
+
+    .blob.two {
+      width: 280px;
+      height: 280px;
+      background: #d5f2ff;
+      bottom: 12%;
+      right: 8%;
+      animation-delay: 1.4s;
+    }
+
+    .blob.three {
+      width: 180px;
+      height: 180px;
+      background: #fff0cf;
+      top: 62%;
+      left: 70%;
+      animation-delay: 2.3s;
+    }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-14px) scale(1.04); }
+    }
+
+    .sparkle {
+      position: absolute;
+      inset: -10vh;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0 2px, transparent 2px 100%);
+      background-size: 80px 80px;
+      animation: drift 24s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0) translateX(0); }
+      to { transform: translateY(-60px) translateX(40px); }
+    }
+
+    .card {
+      width: min(520px, 92vw);
+      padding: 34px 30px 38px;
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      animation: pop 800ms ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.92) translateY(10px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-family: "Pacifico", "Fredoka", sans-serif;
+      font-size: clamp(30px, 5.5vw, 42px);
+      margin: 8px 0 12px;
+      color: #ff6fa8;
+      text-shadow: 0 6px 18px rgba(255, 111, 168, 0.28);
+    }
+
+    p {
+      font-size: clamp(16px, 3.2vw, 20px);
+      margin: 0 0 20px;
+      line-height: 1.4;
+    }
+
+    .emoji {
+      font-size: 46px;
+      margin-bottom: 6px;
+      animation: float 2.8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 26px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 260ms ease, box-shadow 260ms ease, background 260ms ease, filter 260ms ease;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      transform: translateY(0) scale(var(--scale, 1));
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(calc(var(--scale, 1) * 1.03));
+      filter: brightness(1.02);
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.7), transparent 55%);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, var(--yes-2), var(--yes));
+      color: white;
+      min-width: 150px;
+    }
+
+    #noBtn {
+      background: linear-gradient(135deg, var(--no-2), var(--no));
+      color: #3d3d4d;
+      min-width: 120px;
+    }
+
+    .glow {
+      animation: glow 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 0 rgba(255, 111, 168, 0.25); }
+      to { box-shadow: 0 0 18px rgba(255, 111, 168, 0.5); }
+    }
+
+    .bounce {
+      animation: bounce 420ms ease;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0) scale(var(--scale, 1)); }
+      45% { transform: translateY(-2px) scale(calc(var(--scale, 1) * 1.08)); }
+      100% { transform: translateY(0) scale(var(--scale, 1)); }
+    }
+
+    .note {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 14px;
+    }
+
+    .floating-emojis {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floater {
+      position: absolute;
+      animation: floatUp 10s linear infinite, sway 4s ease-in-out infinite;
+      opacity: 0.7;
+      filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.08));
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(30px); }
+      100% { transform: translateY(-120vh); }
+    }
+
+    @keyframes sway {
+      0%, 100% { margin-left: 0; }
+      50% { margin-left: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blobs">
+    <span class="blob one"></span>
+    <span class="blob two"></span>
+    <span class="blob three"></span>
+  </div>
+  <div class="sparkle"></div>
+  <div class="floating-emojis" aria-hidden="true"></div>
+  <div class="card">
+    <div class="emoji">(>_<)</div>
+    <h1 id="headline">I am really sorry, please forgive me.</h1>
+    <p id="subline">You mean a lot to me. Can we make it okay?</p>
+    <div class="buttons">
+      <button id="yesBtn" class="glow">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+    <div class="note" id="note">Click "Yes" to make me smile.</div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const headline = document.getElementById("headline");
+    const subline = document.getElementById("subline");
+    const note = document.getElementById("note");
+    const card = document.querySelector(".card");
+
+    const noTexts = [
+      "Maan ja Yaar",
+      "Maaf kar de",
+      "Ek chance please",
+      "Dil se sorry",
+      "Tumhare bina udaas",
+      "Thoda muskura do",
+      "Please maan jao",
+      "Galti ho gayi",
+      "I will make it right",
+      "Besties again?",
+      "Cute apology incoming",
+      "Sorry sorry sorry",
+      "Mere se naraz mat raho",
+      "Ek choti si maafi",
+      "Please forgive me",
+      "Good vibes only",
+      "No more mistakes",
+      "Heart says sorry",
+      "One more chance",
+      "Apology accepted?",
+      "You are my sunshine",
+      "I will be better",
+      "Sending hugs",
+      "Soft puppy eyes",
+      "Pretty please",
+      "Make it sweet",
+      "Do not stay mad",
+      "We are okay, right?",
+      "Let us reset",
+      "I owe you ice cream"
+    ];
+
+    let noClicks = 0;
+    let yesScale = 1;
+    let noScale = 1;
+
+    function pickRandomText() {
+      const idx = Math.floor(Math.random() * noTexts.length);
+      return noTexts[idx];
+    }
+
+    function pulse(el) {
+      el.classList.remove("bounce");
+      void el.offsetWidth;
+      el.classList.add("bounce");
+    }
+
+    function moveNoButtonRandomly() {
+      const padding = 16;
+      const rect = noBtn.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const availableX = Math.max(0, cardRect.width - rect.width - padding * 2);
+      const availableY = Math.max(0, cardRect.height - rect.height - padding * 2);
+      const nextX = padding + Math.random() * availableX;
+      const nextY = padding + Math.random() * availableY;
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${nextX}px`;
+      noBtn.style.top = `${nextY}px`;
+      noBtn.style.zIndex = "3";
+    }
+
+    noBtn.addEventListener("click", () => {
+      noClicks += 1;
+      yesScale = Math.min(2.4, yesScale + 0.12);
+      noScale = Math.max(0.6, noScale - 0.08);
+
+      yesBtn.style.setProperty("--scale", yesScale.toFixed(2));
+      noBtn.style.setProperty("--scale", noScale.toFixed(2));
+
+      headline.textContent = pickRandomText();
+      subline.textContent = "Please say yes, it will make my day.";
+      
+      pulse(yesBtn);
+      moveNoButtonRandomly();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      headline.textContent = "Yay! Thank you for forgiving me.";
+      subline.textContent = "You are the cutest. Promise to do better.";
+      note.textContent = "Sending a big hug!";
+      yesBtn.classList.add("bounce");
+      noBtn.style.opacity = "0.6";
+    });
+
+    const floatLayer = document.querySelector(".floating-emojis");
+    const floatEmojis = ["💗", "💖", "✨", "🌸", "🧸", "🎀", "💞", "😊", "🥺", "🌷", "🍓", "🌟"]; 
+    const floatCount = 18;
+
+    for (let i = 0; i < floatCount; i += 1) {
+      const span = document.createElement("span");
+      span.className = "floater";
+      span.textContent = floatEmojis[Math.floor(Math.random() * floatEmojis.length)];
+      span.style.left = `${Math.random() * 100}%`;
+      span.style.top = `${60 + Math.random() * 60}%`;
+      span.style.fontSize = `${16 + Math.random() * 18}px`;
+      span.style.animationDuration = `${8 + Math.random() * 8}s, ${3 + Math.random() * 3}s`;
+      span.style.animationDelay = `${-Math.random() * 12}s`;
+      span.style.opacity = `${0.4 + Math.random() * 0.45}`;
+      floatLayer.appendChild(span);
+    }
+  </script>
+</body>
+</html>

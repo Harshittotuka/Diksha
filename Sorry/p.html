@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            background: white;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        /* VIEWPORT */
+        .gallery {
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        /* MOVING WRAPPER */
+        .marquee {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+
+        .gallery:hover .marquee {
+            animation-play-state: paused;
+        }
+
+        .gallery:active .marquee,
+        .gallery:focus-within .marquee {
+            animation-play-state: paused;
+        }
+
+        /* GRID (same as yours) */
+        .grid-container {
+            columns: 5 200px;
+            column-gap: 1.5rem;
+            width: 90vw;
+            padding: 2rem;
+        }
+
+        .grid-container div {
+            display: inline-block;
+            width: 100%;
+            margin: 0 0 1.5rem;
+            border: 2px solid black;
+            padding: 5px;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transition: .25s ease;
+            background: white;
+        }
+
+        .grid-container div:hover {
+            border-color: coral;
+        }
+
+        .grid-container img {
+            width: 100%;
+            filter: grayscale(100%);
+            border-radius: 5px;
+            transition: .25s ease;
+        }
+
+        .grid-container div:hover img {
+            filter: grayscale(0);
+        }
+
+        .grid-container p {
+            margin: 5px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* RESPONSIVE TWEAKS */
+        @media (max-width: 1024px) {
+            .grid-container {
+                columns: 4 180px;
+                width: 94vw;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .gallery {
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+            }
+
+            .marquee {
+                animation-play-state: running;
+            }
+
+            .grid-container {
+                columns: 2 160px;
+                width: 96vw;
+                padding: 1rem;
+                scroll-snap-align: start;
+            }
+
+            .grid-container p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                columns: 1 100%;
+                column-gap: 1rem;
+                width: 100vw;
+                padding: 0.75rem;
+                scroll-snap-align: start;
+            }
+
+            .grid-container div {
+                margin: 0 0 1rem;
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.35);
+            }
+
+            .grid-container p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee {
+                animation: none;
+            }
+        }
+
+        /* ANIMATION */
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gallery">
+        <div class="marquee">
+
+            <!-- GRID 1 -->
+            <div class="grid-container">
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1510771463146-e89e6e86560e?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1504595403659-9088ce801e29?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+            </div>
+
+            <!-- DUPLICATE GRID FOR LOOP -->
+            <div class="grid-container">
+
+                <!-- SAME ITEMS AGAIN -->
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1510771463146-e89e6e86560e?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+                <div>
+                    <img src="https://images.unsplash.com/photo-1504595403659-9088ce801e29?q=80&w=400">
+                    <p class="caption"></p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const gallery = document.querySelector(".gallery");
+    const marquee = document.querySelector(".marquee");
+    const captionElements = document.querySelectorAll(".caption");
+
+    if (gallery && marquee) {
+        let isAdjusting = false;
+
+        const loopScroll = () => {
+            if (isAdjusting) {
+                return;
+            }
+
+            const halfWidth = marquee.scrollWidth / 2;
+            if (halfWidth === 0) {
+                return;
+            }
+
+            if (gallery.scrollLeft >= halfWidth) {
+                isAdjusting = true;
+                gallery.scrollLeft -= halfWidth;
+                isAdjusting = false;
+            } else if (gallery.scrollLeft < 0) {
+                isAdjusting = true;
+                gallery.scrollLeft += halfWidth;
+                isAdjusting = false;
+            }
+        };
+
+        gallery.addEventListener("scroll", loopScroll, { passive: true });
+    }
+
+    if (captionElements.length > 0) {
+        const captions = [
+            "I'm so happy today!",
+            "I see those nugs.",
+            "I love you so much!",
+            "I'm the baby of the house!",
+            "Are you gunna throw the ball?",
+            "C'mon friend!",
+            "A rose for mommy!",
+            "You gunna finish that?",
+            "We can't afford a cat!",
+            "Dis my fren!"
+        ];
+
+        captionElements.forEach((caption, index) => {
+            const text = captions[index % captions.length] || "";
+            caption.textContent = `\"${text}\"`;
+        });
+    }
+</script>
+
+</html>
