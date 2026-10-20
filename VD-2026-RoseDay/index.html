@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine’s | Rose Day</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-black">
+    <div id="app">
+      <div id="clock" class="clock">11:59 PM</div>
+      <button id="info-toggle" class="info-toggle" aria-label="Info">i</button>
+      <div id="info-panel" class="info-panel hidden">
+        <div class="info-title">Info</div>
+        <div class="info-text">To open test panel - type "test".</div>
+        <div class="info-text">Password = love.</div>
+      </div>
+      <div id="loop-controls" class="loop-controls">
+        <button id="loop-toggle" class="btn tiny">Show complete loop</button>
+        <div id="loop-nav" class="loop-nav hidden">
+          <button id="loop-prev" class="btn tiny">Previous</button>
+          <button id="loop-next" class="btn tiny">Next</button>
+        </div>
+      </div>
+      <div id="screen" class="fade-in">
+        <h1 id="title"></h1>
+        <p id="subtitle"></p>
+        <div id="actions"></div>
+        <div id="hint" class="hint"></div>
+      </div>
+
+      <div id="countdown" class="countdown hidden">
+        <div class="countdown-label">Midnight in</div>
+        <div id="countdown-time" class="countdown-time">00:00:00</div>
+      </div>
+
+      <div id="story-tap" class="story-tap hidden">tap to continue ❤️</div>
+
+      <div id="map" class="map hidden">
+        <div class="map-card">
+          <div class="map-title">Your Treasure Map</div>
+          <div id="map-art" class="map-art" aria-hidden="true"></div>
+          <div class="map-text">Your mission: find the hidden gift in real life.</div>
+          <button id="open-camera" class="btn glow">Open Camera 📸</button>
+        </div>
+      </div>
+
+      <div id="map-lightbox" class="lightbox hidden">
+        <img id="map-full" src="map.jpeg" alt="Treasure map" />
+      </div>
+
+      <div id="camera" class="camera hidden">
+        <div class="camera-card">
+          <div class="camera-title">Capture the moment</div>
+          <video id="camera-video" autoplay playsinline muted></video>
+          <canvas id="camera-canvas" class="hidden"></canvas>
+          <img id="camera-photo" class="hidden" alt="Captured" />
+          <div class="camera-actions">
+            <button id="capture-photo" class="btn">Capture</button>
+            <button id="complete" class="btn glow hidden">Complete ❤️</button>
+            <button id="skip" class="btn subtle skip">Skip → Complete ❤️</button>
+          </div>
+          <div id="camera-error" class="camera-error"></div>
+        </div>
+      </div>
+
+      <div id="password" class="password hidden">
+        <div class="password-card">
+          <div class="password-title">Enter your password</div>
+          <div class="password-hint">(Type it anywhere on the screen)</div>
+          <input
+            id="password-input"
+            class="password-input"
+            type="password"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            placeholder="Password"
+            aria-label="Password"
+          />
+        </div>
+      </div>
+
+      <div id="flash" class="flash hidden"></div>
+      <div id="popup" class="popup hidden">hahaha — you can trick the website, but you can’t say no 💞</div>
+
+      <audio id="midnight-audio" src="ishq%20hai.mp3" preload="auto"></audio>
+
+      <div id="video-overlay" class="video-overlay hidden">
+        <video id="final-video" src="fc.mp4" playsinline></video>
+      </div>
+
+      <canvas id="fireworks" class="fireworks"></canvas>
+    </div>
+
+    <div id="dev-panel" class="dev-panel hidden">
+      <div class="dev-title">Dev Panel</div>
+      <button data-dev="loading">Initial Loading Screen</button>
+      <button data-dev="t1150">11:50 Screen</button>
+      <button data-dev="t1155">11:55 Screen</button>
+      <button data-dev="proposal">Proposal Screen</button>
+      <button data-dev="countdown">Trigger YES → Countdown</button>
+      <button data-dev="midnight">Force Midnight</button>
+      <button data-dev="story">Start Rose Story</button>
+      <button data-dev="map">Open Treasure Map</button>
+      <button data-dev="camera">Launch Camera</button>
+      <button data-dev="final">Show Final Screen</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
